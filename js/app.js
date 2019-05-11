@@ -1,19 +1,12 @@
-/*
- * Create a list that holds all of your cards
- */
+let count = -1, move = 0, events = []
+const cards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-bolt", "fa fa-cube",
+               "fa fa-leaf", "fa fa fa-bicycle", "fa fa-bomb", "fa fa-anchor",
+               "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-bolt", "fa fa-cube",
+               "fa fa-leaf", "fa fa fa-bicycle", "fa fa-bomb", "fa fa-anchor"];
 
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
+    let currentIndex = array.length, temporaryValue, randomIndex;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
@@ -21,18 +14,49 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
-    return array;
+     return array;
 }
 
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function game() {
+    shuffle(cards);
+    cardsNumbers = document.querySelectorAll(".card");
+    for(let i = 0; i < cardsNumbers.length; i++)
+        cardsNumbers[i].addEventListener("click", check), cardsNumbers[i].className = "card", 
+        cardsNumbers[i].childNodes[1].className = cards[i];
+}
+
+
+
+function check(){
+    this.removeEventListener("click", check);
+    this.className = "card open show";
+    events.push(this);
+    if(events.length === 2 && events[0].childNodes[1].className === events[1].childNodes[1].className)
+        events[0].className = "card match", events[1].className = "card match", move++, events = [], count++;
+    else if(events.length === 2)
+        setTimeout(function(){
+        events[0].className = "card", events[1].className = "card";
+        events[0].addEventListener("click", check), events[1].addEventListener("click", check);
+        events = [];
+        move++;
+        }, 200);
+    if(count === 7)
+        setTimeout(function() {
+            alert("you win");
+            count = -1;
+            move = 0;
+            document.getElementsByClassName("moves")[0].textContent = move;
+            game();
+        }, 200)
+    document.getElementsByClassName("moves")[0].textContent = move;
+}
+
+
+game()
+document.getElementsByClassName("restart")[0].addEventListener("click", function(){
+    count = -1;
+    move = 0;
+    document.getElementsByClassName("moves")[0].textContent = move;
+    game();
+})
