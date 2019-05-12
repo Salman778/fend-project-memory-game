@@ -1,20 +1,38 @@
 # Memory Game Project
 
-## Table of Contents
+Is a card game in which all of the cards are laid face down on a surface and two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+### Prerequisites
 
-## Instructions
+Web browser
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+```
+Google Chrome
+```
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Running the Game
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+Open  [Memory Game](https://github.com/Salman778/fend-project-memory-game)
 
-## Contributing
+Turn over any two cards
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+If the two cards match, keep them
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+If they don't match, turn them back over
+
+The game is over when all the cards have been matched 
+
+
+## Deployment
+
+Deploy with github
+
+## Built With
+
+* [JavaScript](https://www.javascript.com/) - Programming language
+* [Bootstrap](https://getbootstrap.com/) - CSS framework
+
+
+## Authors
+
+* **Salman Altuwayjiri** - [Salman778](https://github.com/Salman778)
