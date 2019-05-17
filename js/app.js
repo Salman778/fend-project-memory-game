@@ -21,6 +21,11 @@ function shuffle(array) {
 
 function game() {
     //Remove all the stars
+    setInterval(function() {
+        document.getElementById("time").innerHTML = start + "S";
+        if(start != 0)
+        start++;
+    }, 1000);
     document.getElementsByClassName("stars")[0].innerHTML = '';
     //Add three stars
     for(let i = 0; i < 3; i++)
@@ -40,7 +45,7 @@ function game() {
 function check(){
     //The timer start
     if(start === 0)
-        start = Date.now();
+        start++
     //Remove Event Listener
     this.removeEventListener("click", check);
     //flip the card
@@ -67,9 +72,7 @@ function check(){
     if(count === 7)
         setTimeout(function() {
             //re-assign Initial value
-            start -= Date.now();
-            start /= 1000;
-            alert("You win\nTime:" + start + " Seconds");
+            alert("Congratulate\nTime: " + start + " Seconds\n" + "Strar: " + document.getElementsByClassName("fa-star").length);
             count = -1;
             move = 0;
             start = 0;
@@ -88,6 +91,5 @@ document.getElementsByClassName("restart")[0].addEventListener("click", function
     document.getElementsByClassName("moves")[0].textContent = move;
     game();
 })
-
 
 game()
