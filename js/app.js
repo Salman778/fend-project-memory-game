@@ -19,13 +19,19 @@ function shuffle(array) {
 }
 
 
-function game() {
-    //Remove all the stars
-    setInterval(function() {
-        document.getElementById("time").innerHTML = start + "S";
-        if(start != 0)
+function time() {
+    document.getElementById("time").innerHTML = start + "S";
+    if(start != 0)
         start++;
-    }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(go);
+}
+let go;
+function game() {
+    go = setInterval(time, 1000);
+    //Remove all the stars
     document.getElementsByClassName("stars")[0].innerHTML = '';
     //Add three stars
     for(let i = 0; i < 3; i++)
@@ -69,25 +75,31 @@ function check(){
             document.getElementsByClassName("stars")[0].childNodes[0].remove();
         }, 200);
     //if all our cards fliped
-    if(count === 7)
+    if(count === 7){
+        stopTimer(go);
         setTimeout(function() {
-            //re-assign Initial value
-            alert("Congratulate\nTime: " + start + " Seconds\n" + "Strar: " + document.getElementsByClassName("fa-star").length);
-            count = -1;
-            move = 0;
-            start = 0;
-            document.getElementsByClassName("moves")[0].textContent = move;
-            game();
-        }, 200)
+            //re-assign Initial valuealert
+            let ask = confirm("Congratulate\nTime: " + start + " Seconds\n" + "Strar: " + document.getElementsByClassName("fa-star").length + "\nDo You want to play again?");
+            if(ask === true){
+                count = -1;
+                move = 0;
+                start = 0;
+                document.getElementsByClassName("moves")[0].textContent = move;
+                game();
+            }
+            }, 200)
+        }
     document.getElementsByClassName("moves")[0].textContent = move;
     
 }
 
 document.getElementsByClassName("restart")[0].addEventListener("click", function(){
+    start = 0;
     //re-assign Initial value
+    stopTimer(go);
     count = -1;
     move = 0;
-    start = 0;
+    events = []
     document.getElementsByClassName("moves")[0].textContent = move;
     game();
 })
